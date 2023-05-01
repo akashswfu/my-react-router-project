@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="my-container flex flex-col items-center justify-between lg:flex-row ">
+    <div className="my-container flex flex-col items-center justify-between lg:flex-row py-5">
       {/* Text Content */}
       <div className="mb-10 lg:max-w-lg  lg:pr-5 lg:mb-0">
         <div className="max-w-xl mb-6 lg:mt-8">

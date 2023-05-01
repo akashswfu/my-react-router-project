@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 .my-container{
-    @apply px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20
+    @apply px-4 py-0 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-16 lg:py-20
 }
 
 .btn{
@@ -13,4 +13,7 @@
 }
 .badge-details{
     @apply bg-yellow-400 h-6 w-32 inline-flex p-2 items-center rounded-lg
+}
+.log-container{
+    @apply px-4 py-0 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24  lg:px-20 
 }

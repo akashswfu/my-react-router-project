@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
   BoltIcon,
   Bars3BottomRightIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then((result) => {})
+      .catch((error) => console.log(error));
+  };
   return (
     <div className="bg-gray-100 px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
@@ -51,6 +58,43 @@ const Header = () => {
               About us
             </NavLink>
           </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600" : "default"
+                }
+              >
+                Cart
+              </NavLink>
+            </li>
+          )}
+          <li>
+            {user ? (
+              <NavLink
+                onClick={handleLogOut}
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600" : "default"
+                }
+              >
+                Logout
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600" : "default"
+                }
+              >
+                Login
+              </NavLink>
+            )}
+          </li>
+          {user && (
+            <li className="text-green-500 font-semibold">{user.email}</li>
+          )}
         </ul>
         {/* Mobile Navbar Section */}
         <div className="lg:hidden">
@@ -109,6 +153,34 @@ const Header = () => {
                       >
                         About Us
                       </Link>
+                    </li>
+                    {user && (
+                      <li>
+                        <Link
+                          to="/cart"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-blue-400"
+                        >
+                          Cart
+                        </Link>
+                      </li>
+                    )}
+                    <li>
+                      {user ? (
+                        <Link
+                          onClick={handleLogOut}
+                          to="/login"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-blue-400"
+                        >
+                          Logout
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/login"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-blue-400"
+                        >
+                          Login
+                        </Link>
+                      )}
                     </li>
                   </ul>
                 </nav>

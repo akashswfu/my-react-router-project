@@ -9,6 +9,11 @@ import Books from "./component/Books";
 import BookDetails from "./component/BookDetails";
 import LoadingSpinner from "./component/LoadingSpiner";
 import ErrorPage from "./component/ErrorPage";
+import Login from "./component/Login";
+import Registration from "./component/Registration";
+import AuthProvider from "./providers/AuthProvider";
+import Cart from "./component/Cart";
+import PrivateRoute from "./routes/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +27,11 @@ const router = createBrowserRouter([
       },
       {
         path: "books",
-        element: <Books></Books>,
+        element: (
+          <PrivateRoute>
+            <Books></Books>
+          </PrivateRoute>
+        ),
         loader: () => fetch("https://api.itbook.store/1.0/new"),
       },
       {
@@ -39,10 +48,28 @@ const router = createBrowserRouter([
         path: "loader",
         element: <LoadingSpinner></LoadingSpinner>,
       },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "register",
+        element: <Registration></Registration>,
+      },
+      {
+        path: "cart",
+        element: (
+          <PrivateRoute>
+            <Cart></Cart>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 );
