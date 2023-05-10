@@ -8,8 +8,8 @@ const Books = () => {
   if (navigation.state === "loading") {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  const { books } = useLoaderData();
-  console.log(books);
+  const books = useLoaderData();
+  console.log(books.isbn13);
   return (
     <div className="my-container">
       <div className="grid gap-6 mb-8 lg:grid-cols-4 sm:grid-cols-2">

@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { GiArchiveRegister } from "react-icons/gi";
 
 const Register = () => {
   const [success, setSuccess] = useState("");
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const { user, createUser } = useContext(AuthContext);
   const handleRegister = (event) => {
     event.preventDefault();
@@ -22,10 +25,11 @@ const Register = () => {
         console.log(loggedUser);
         form.reset();
         setSuccess("Registration Success");
+        toast("Registration Sccessfully done");
       })
       .catch((error) => {
         console.log(error);
-        setError("Password must be Six charater");
+        setError("Password must be Six character");
       });
   };
   return (
@@ -84,7 +88,10 @@ const Register = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Register</button>
+                <button className="btn btn-primary">
+                  <GiArchiveRegister className="text-xl me-2" /> Register
+                </button>
+                <ToastContainer />
               </div>
               <p className="text-green-400">{success}</p>
             </form>

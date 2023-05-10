@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import CartDetails from "./CartDetails";
 
 const Cart = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const bookStore = JSON.parse(localStorage.getItem("book-store"));
+    setData(bookStore);
+  }, []);
+
   return (
     <div className="my-container">
-      <h1>This is Cart</h1>
+      {data?.map((books) => (
+        <CartDetails key={books.isbn13} books={books}></CartDetails>
+      ))}
     </div>
   );
 };

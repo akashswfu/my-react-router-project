@@ -1,12 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FcGoogle } from "react-icons/fc";
+import { BiLogInCircle } from "react-icons/bi";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const { signIn, signInWithGoogle } = useContext(AuthContext);
   const handleLogin = (event) => {
     event.preventDefault();
+    setSuccess("");
+    setError("");
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -16,10 +24,12 @@ const Login = () => {
         const loggedUser = result.user;
         console.log(loggedUser);
         form.reset();
+        toast("Login Sccessfully done");
         navigate("/", { replace: true });
       })
       .catch((error) => {
         console.log(error);
+        setError("Wrong Password/Email");
       });
   };
   const handleWithGoogle = () => {
@@ -27,9 +37,12 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        toast("Login Sccessfully done");
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         console.log(error);
+        setError("Please Input correct Info");
       });
   };
   return (
@@ -65,13 +78,14 @@ const Login = () => {
                   required
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
+                  <small className="text-red-500">{error}</small>
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">
+                  <BiLogInCircle className="text-xl me-2" /> Login
+                </button>
+                <ToastContainer />
               </div>
             </form>
             <label className="label">
@@ -84,8 +98,10 @@ const Login = () => {
             </label>
             <div className="ms-8 mb-5">
               <button onClick={handleWithGoogle} className="btn btn-primary">
+                <FcGoogle className="text-2xl me-2" />
                 Sign in With Google
               </button>
+              <ToastContainer />
             </div>
           </div>
         </div>

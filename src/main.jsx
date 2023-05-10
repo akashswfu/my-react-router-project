@@ -32,13 +32,16 @@ const router = createBrowserRouter([
             <Books></Books>
           </PrivateRoute>
         ),
-        loader: () => fetch("https://api.itbook.store/1.0/new"),
+        loader: () =>
+          fetch("https://bookstore-server-site-akashswfu.vercel.app/data"),
       },
       {
         path: "book/:id",
         element: <BookDetails></BookDetails>,
         loader: ({ params }) =>
-          fetch(`https://api.itbook.store/1.0/books/${params.id}`),
+          fetch(
+            `https://bookstore-server-site-akashswfu.vercel.app/books/${params.id}`
+          ),
       },
       {
         path: "about",

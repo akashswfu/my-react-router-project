@@ -22,7 +22,7 @@ const Header = () => {
         <Link to="/" className="inline-flex items-center">
           <BoltIcon className="h-6 w-6 text-blue-500" />
           <span className="ml-2 text-xl font-bold tracking-wide text-gray-800">
-            nextPage
+            Knowledge Store
           </span>
         </Link>
 
@@ -92,9 +92,35 @@ const Header = () => {
               </NavLink>
             )}
           </li>
-          {user && (
-            <li className="text-green-500 font-semibold">{user.email}</li>
-          )}
+          <li>
+            {user && (
+              <li className="text-green-500 font-semibold">{user.email}</li>
+            )}
+          </li>
+          <li>
+            {user && (
+              <div className="w-10 h-10 rounded-full bg-blue-500 relative">
+                {user.photoURL ? (
+                  <div>
+                    <img
+                      className="w-full h-full rounded-full absolute inset-0 bg-cover bg-center z-0"
+                      src={user.photoURL}
+                      alt={user?.email?.slice(0, 1)}
+                    />
+                    <div className="opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-center text-sm text-red-500 font-semibold">
+                      {user.displayName}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center ">
+                    <p className="uppercase text-xl font-bold text-red-700 ">
+                      {user.email.slice(0, 1)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </li>
         </ul>
         {/* Mobile Navbar Section */}
         <div className="lg:hidden">
@@ -115,7 +141,7 @@ const Header = () => {
                     <Link to="/" className="inline-flex items-center">
                       <BoltIcon className="h-6 w-6 text-blue-500" />
                       <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        nextPage
+                        Knowledge Store
                       </span>
                     </Link>
                   </div>
